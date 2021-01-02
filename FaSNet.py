@@ -1,3 +1,6 @@
+"""
+Author: yluo42/TAC "https://github.com/yluo42/TAC"
+"""
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
