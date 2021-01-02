@@ -1,4 +1,4 @@
-# FaSNet_TAC
+# FaSNet-TAC-pytorch
 Full implementation of "End-to-end microphone permutation and number invariant multi-channel speech separation" (Interspeech 2020)
 
 
