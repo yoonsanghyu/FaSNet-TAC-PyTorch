@@ -5,7 +5,7 @@ Full implementation of "End-to-end microphone permutation and number invariant m
 
 ## Plan
 
-- [ ] Data pre-processing
+- [x] Data pre-processing
 - [x] Training
 - [x] Inference
 - [x] Separate
