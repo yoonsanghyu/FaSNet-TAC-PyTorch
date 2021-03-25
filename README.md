@@ -13,4 +13,9 @@ Full implementation of "End-to-end microphone permutation and number invariant m
 
 You can use our code by changing data_script/tr.scp, cv.scp, tt.scp as your data directory.
 
+```bash
+D:/MC_Libri_fixed/tr # your path
+20000 # the number of samples
+```
+
 Data generation script: https://github.com/yluo42/TAC/tree/master/data
