@@ -7,7 +7,7 @@ Full implementation of "End-to-end microphone permutation and number invariant m
 
 - [x] Data pre-processing
 - [x] Training
-- [ ] Inference
+- [x] Inference
 - [ ] Separate
 
 
