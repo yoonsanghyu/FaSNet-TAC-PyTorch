@@ -8,7 +8,7 @@ Full implementation of "End-to-end microphone permutation and number invariant m
 - [x] Data pre-processing
 - [x] Training
 - [x] Inference
-- [ ] Separate
+- [x] Separate
 
 
 You can use our code by changing data_script/tr.scp, cv.scp, tt.scp as your data directory.
