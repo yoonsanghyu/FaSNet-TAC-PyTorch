@@ -21,3 +21,6 @@ D:/MC_Libri_fixed/tr # your path
 ```
 
 Data generation script: https://github.com/yluo42/TAC/tree/master/data
+
+## Reference
+https://github.com/yluo42/TAC/
