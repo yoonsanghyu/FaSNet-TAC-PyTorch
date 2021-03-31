@@ -11,6 +11,7 @@ Full implementation of "End-to-end microphone permutation and number invariant m
 - [x] Separate
 
 
+## How to use?
 You can use our code by changing data_script/tr.scp, cv.scp, tt.scp as your data directory.
 
 ```bash
