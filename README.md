@@ -13,6 +13,7 @@ Full implementation of "End-to-end microphone permutation and number invariant m
 
 ## How to use?
 First, you have to generate dataset from followed link.
+
 Data generation script: https://github.com/yluo42/TAC/tree/master/data
 
 You can use our code by changing data_script/tr.scp, cv.scp, tt.scp as your data directory.
