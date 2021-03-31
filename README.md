@@ -12,6 +12,9 @@ Full implementation of "End-to-end microphone permutation and number invariant m
 
 
 ## How to use?
+First, you have to generate dataset from followed link.
+Data generation script: https://github.com/yluo42/TAC/tree/master/data
+
 You can use our code by changing data_script/tr.scp, cv.scp, tt.scp as your data directory.
 
 ```bash
@@ -20,8 +23,6 @@ You can use our code by changing data_script/tr.scp, cv.scp, tt.scp as your data
 D:/MC_Libri_fixed/tr # your path
 20000 # the number of samples
 ```
-
-Data generation script: https://github.com/yluo42/TAC/tree/master/data
 
 ## Reference
 https://github.com/yluo42/TAC/
