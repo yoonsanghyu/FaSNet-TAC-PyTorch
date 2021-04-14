@@ -25,5 +25,15 @@ D:/MC_Libri_fixed/tr # your path
 20000 # the number of samples
 ```
 
+Second, 
+```bash
+python train.py
+```
+
+Third,
+```bash
+python evaluate.py
+```
+
 ## Reference
 https://github.com/yluo42/TAC/
