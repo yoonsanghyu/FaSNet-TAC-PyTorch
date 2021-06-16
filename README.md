@@ -37,3 +37,7 @@ python evaluate.py
 
 ## Reference
 https://github.com/yluo42/TAC/
+
+## Result
+
+We achive SI-SNRi 11.36 dB in 6 microphone noisy reverberant setting.
