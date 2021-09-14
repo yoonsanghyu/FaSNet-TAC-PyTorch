@@ -68,9 +68,6 @@ def separate(args):
 
     os.makedirs(args.out_dir, exist_ok=True)
 
-    def write(inputs, filename, sr=args.sample_rate):
-        sf.write(filename, inputs, sr)  # norm=True)
-
     with torch.no_grad():
         # t = tqdm(total=len(eval_dataset), mininterval=0.5)
         for i, data in enumerate(eval_loader):
@@ -97,7 +94,7 @@ def separate(args):
                     if not os.path.exists(this_dir):
                         os.makedirs(this_dir)
                     source = src * (power / np.sqrt((src ** 2).sum() / len(padded_mixture)))
-                    write(source, os.path.join(this_dir, 's{0}.wav'.format(k + 1)))
+                    sf.write(os.path.join(this_dir, 's{0}.wav'.format(k + 1)), source, args.sample_rate)
 
             # t.update()
 

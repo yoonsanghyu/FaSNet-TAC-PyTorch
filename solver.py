@@ -16,7 +16,7 @@ import time
 import numpy as np
 import torch
 
-from pit_criterion import cal_loss
+from pit_criterion import calc_loss
 
 
 class Solver(object):
@@ -158,7 +158,7 @@ class Solver(object):
             estimate_source = self.model(padded_mixture, none_mic.long())
 
             loss, max_snr, estimate_source, reorder_estimate_source = \
-                cal_loss(padded_source, estimate_source, mixture_lengths)
+                calc_loss(padded_source, estimate_source, mixture_lengths)
 
             if not cross_valid:
                 self.optimizer.zero_grad()

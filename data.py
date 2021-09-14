@@ -176,7 +176,7 @@ def _collate_fn_eval(batch):
             mix, _ = librosa.load(mix_path, sr)
             mix_list.append(mix)
 
-            # we only use first mic fro source signal            
+            # we only use first mic for source signal
             if n == 0:
                 s1_path = os.path.join(i, 'spk1_mic{0}.wav'.format(n + 1))
                 s2_path = os.path.join(i, 'spk2_mic{0}.wav'.format(n + 1))
