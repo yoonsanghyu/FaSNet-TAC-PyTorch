@@ -10,11 +10,9 @@ Created on Tue Jul 14 10:09:09 2020
 # Author: Kaituo XU
 
 import argparse
-from collections import OrderedDict
 
 import numpy as np
 import torch
-from mir_eval.separation import bss_eval_sources
 
 from FaSNet import FaSNet_TAC
 from data import AudioDataset, EvalAudioDataLoader
@@ -142,8 +140,6 @@ def evaluate(args):
     np.save('sisnr.npy', np.array(sisnr_array))
     np.save('sdr.npy', np.array(sdr_array))
     print("Average SISNR improvement: {0:.2f}".format(total_SISNRi / total_cnt))
-
-
 
 
 if __name__ == '__main__':

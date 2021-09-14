@@ -70,6 +70,7 @@ parser.add_argument('--print_freq', default=1000, type=int, help='Frequency of p
 
 
 def main(args):
+    assert args.optimizer in ['sgd', 'adam']
     # data
     tr_dataset = AudioDataset('train', batch_size=args.batch_size, sample_rate=args.sample_rate, nmic=args.mic)
     cv_dataset = AudioDataset('validation', batch_size=args.batch_size, sample_rate=args.sample_rate, nmic=args.mic)
@@ -93,20 +94,17 @@ def main(args):
 
     # optimizer
     if args.optimizer == 'sgd':
-        optimizier = torch.optim.SGD(model.parameters(),
-                                     lr=args.lr,
-                                     momentum=args.momentum,
-                                     weight_decay=args.l2)
+        optimizer = torch.optim.SGD(model.parameters(),
+                                    lr=args.lr,
+                                    momentum=args.momentum,
+                                    weight_decay=args.l2)
     elif args.optimizer == 'adam':
-        optimizier = torch.optim.Adam(model.parameters(),
-                                      lr=args.lr,
-                                      weight_decay=args.l2)
-    else:
-        print("Not support optimizer")
-        return
+        optimizer = torch.optim.Adam(model.parameters(),
+                                     lr=args.lr,
+                                     weight_decay=args.l2)
 
     # solver
-    solver = Solver(data, model, optimizier, args)
+    solver = Solver(data, model, optimizer, args)
     solver.train()
 
 

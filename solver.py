@@ -34,12 +34,15 @@ class Solver(object):
         self.half_lr = args.half_lr
         self.early_stop = args.early_stop
         self.max_norm = args.max_norm
+
         # save and load model
         self.save_folder = args.save_folder
         self.checkpoint = args.checkpoint
         self.continue_from = args.continue_from
+
         # logging
         self.print_freq = args.print_freq
+
         # loss
         self.tr_loss = torch.Tensor(self.epochs)
         self.cv_loss = torch.Tensor(self.epochs)
@@ -117,6 +120,7 @@ class Solver(object):
                         break
                 else:
                     self.val_no_impv = 0
+
             if self.halving:
                 optim_state = self.optimizer.state_dict()
                 optim_state['param_groups'][0]['lr'] = \
