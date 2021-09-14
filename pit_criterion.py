@@ -9,28 +9,28 @@ Created on Wed Jul  1 11:00:46 2020
 # Author: Kaituo XU
 
 from itertools import permutations
-import torch
 
+import torch
 
 EPS = 1e-8
 
 
-def cal_loss(source, estimate_source, source_lengths):
+def calc_loss(source, estimate_source, source_lengths):
     """
     Args:
         source: [B, C, T], B is batch size
         estimate_source: [B, C, T]
         source_lengths: [B]
     """
-    max_snr, perms, max_snr_idx = cal_si_snr_with_pit(source,
-                                                      estimate_source,
-                                                      source_lengths)
+    max_snr, perms, max_snr_idx = calc_si_snr_with_pit(source,
+                                                       estimate_source,
+                                                       source_lengths)
     loss = 0 - torch.mean(max_snr)
     reorder_estimate_source = reorder_source(estimate_source, perms, max_snr_idx)
     return loss, max_snr, estimate_source, reorder_estimate_source
 
 
-def cal_si_snr_with_pit(source, estimate_source, source_lengths):
+def calc_si_snr_with_pit(source, estimate_source, source_lengths):
     """Calculate SI-SNR with PIT training.
     Args:
         source: [B, C, T], B is batch size
@@ -97,11 +97,11 @@ def reorder_source(source, perms, max_snr_idx):
     max_snr_perm = torch.index_select(perms, dim=0, index=max_snr_idx)
     # print('max_snr_perm', max_snr_perm)
     # maybe use torch.gather()/index_select()/scatter() to impl this?
-    reorder_source = torch.zeros_like(source)
+    reordered_source = torch.zeros_like(source)
     for b in range(B):
         for c in range(C):
-            reorder_source[b, c] = source[b, max_snr_perm[b][c]]
-    return reorder_source
+            reordered_source[b, c] = source[b, max_snr_perm[b][c]]
+    return reordered_source
 
 
 def get_mask(source, source_lengths):

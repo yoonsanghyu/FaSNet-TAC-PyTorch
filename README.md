@@ -16,7 +16,7 @@ First, you have to generate dataset from followed link.
 
 Data generation script: https://github.com/yluo42/TAC/tree/master/data
 
-You can use our code by changing data_script/tr.scp, cv.scp, tt.scp as your data directory.
+You can use our code by changing data_script/train.scp, data_script/validation.scp, data_script/test.scp as your data directory.
 
 ```bash
 # In scp file
@@ -25,14 +25,19 @@ D:/MC_Libri_fixed/tr # your path
 20000 # the number of samples
 ```
 
-Second, 
+Second, to train the model use 
 ```bash
 python train.py
 ```
 
-Third,
+Third, to evaluate metrics on test set use
 ```bash
 python evaluate.py
+```
+
+Fourth, to separate test set to speakers use
+```bash
+python separate.py
 ```
 
 ## Reference
@@ -40,4 +45,4 @@ https://github.com/yluo42/TAC/
 
 ## Result
 
-We achive SI-SNRi 11.36 dB in 6 microphone noisy reverberant setting.
+We achieved SI-SNRi 11.36 dB in 6 microphone noisy reverberant setting.
