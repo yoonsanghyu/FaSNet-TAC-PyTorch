@@ -9,8 +9,8 @@ Created on Wed Jul  1 11:00:46 2020
 # Author: Kaituo XU
 
 from itertools import permutations
-import torch
 
+import torch
 
 EPS = 1e-8
 
