@@ -84,8 +84,7 @@ def separate(args):
                 power = np.sqrt((padded_mixture.cpu().numpy() ** 2).sum() / len(padded_mixture.cpu().numpy()))
                 for k, src in enumerate(scs):
                     this_dir = os.path.join(args.out_dir, 'utt{0}'.format(i + 1))
-                    if not os.path.exists(this_dir):
-                        os.makedirs(this_dir)
+                    os.makedirs(this_dir, exist_ok=True)
                     source = src * (power / np.sqrt((src ** 2).sum() / len(padded_mixture)))
                     sf.write(os.path.join(this_dir, 's{0}.wav'.format(k + 1)), source, args.sample_rate)
 

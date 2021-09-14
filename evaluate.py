@@ -44,7 +44,7 @@ def remove_pad(inputs, inputs_lengths):
 parser = argparse.ArgumentParser('Evaluate separation performance using FaSNet + TAC')
 parser.add_argument('--model_path', type=str, default='exp/tmp/temp_best.pth.tar',
                     help='Path to model file created by training')
-parser.add_argument('--cal_sdr', type=int, default=1,
+parser.add_argument('--calc_sdr', type=int, default=1,
                     help='Whether calculate SDR, add this option because calculation of SDR is very slow')
 parser.add_argument('--use_cuda', type=int, default=1, help='Whether use GPU to separate speech')
 
@@ -123,7 +123,7 @@ def evaluate(args):
             for mix, src_ref, src_est in zip(mixture, source, estimate_source):
                 print("Utt", total_cnt + 1)
                 # Compute SDRi
-                if args.cal_sdr:
+                if args.calc_sdr:
                     avg_SDRi = calc_SDRi(src_ref, src_est, mix)
                     total_SDRi += avg_SDRi
                     sdr_array.append(avg_SDRi)
