@@ -16,7 +16,7 @@ First, you have to generate dataset from followed link.
 
 Data generation script: https://github.com/yluo42/TAC/tree/master/data
 
-You can use our code by changing data_script/tr.scp, cv.scp, tt.scp as your data directory.
+You can use our code by changing data_script/train.scp, data_script/validation.scp, data_script/test.scp as your data directory.
 
 ```bash
 # In scp file

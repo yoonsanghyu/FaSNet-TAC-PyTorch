@@ -19,6 +19,7 @@ from mir_eval.separation import bss_eval_sources
 from FaSNet import FaSNet_TAC
 from data import AudioDataset, EvalAudioDataLoader
 from pit_criterion import calc_loss
+from utility.general import load_model_with_fixes
 from utility.metrics import calc_SISNRi, calc_SDRi
 
 
@@ -83,14 +84,7 @@ def evaluate(args):
     # model.load_state_dict(torch.load(args.model_path, map_location='cpu'))
 
     model_info = torch.load(args.model_path)
-    try:
-        model.load_state_dict(model_info['model_state_dict'])
-    except KeyError:
-        state_dict = OrderedDict()
-        for k, v in model_info['model_state_dict'].items():
-            name = k.replace("module.", "")  # remove 'module.'
-            state_dict[name] = v
-        model.load_state_dict(state_dict)
+    load_model_with_fixes(model, model_info)
 
     print(model)
     model.eval()

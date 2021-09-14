@@ -71,8 +71,8 @@ parser.add_argument('--print_freq', default=1000, type=int, help='Frequency of p
 
 def main(args):
     # data
-    tr_dataset = AudioDataset('tr', batch_size=args.batch_size, sample_rate=args.sample_rate, nmic=args.mic)
-    cv_dataset = AudioDataset('val', batch_size=args.batch_size, sample_rate=args.sample_rate, nmic=args.mic)
+    tr_dataset = AudioDataset('train', batch_size=args.batch_size, sample_rate=args.sample_rate, nmic=args.mic)
+    cv_dataset = AudioDataset('validation', batch_size=args.batch_size, sample_rate=args.sample_rate, nmic=args.mic)
     tr_loader = AudioDataLoader(tr_dataset, batch_size=1, shuffle=args.shuffle, num_workers=0)  # num_workers=0 for PC
     cv_loader = AudioDataLoader(cv_dataset, batch_size=1, num_workers=0)  # num_workers=0 for PC
 

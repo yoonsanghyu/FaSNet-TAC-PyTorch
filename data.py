@@ -13,9 +13,10 @@ import torch
 import torch.utils.data as data
 
 
-# read 'tr' or 'val' or 'test' mixture path
-def read_scp(opt_data, mix):
-    mix_scp = 'data_script/{0}_{1}.scp'.format(opt_data, mix)
+# read 'train' or 'validation' or 'test' mixture path
+def read_scp(opt_data):
+    assert opt_data in ['train', 'validation', 'test']
+    mix_scp = 'data_script/{0}.scp'.format(opt_data)
     lines = open(mix_scp, 'r').readlines()
 
     scp_dict = []
@@ -40,7 +41,7 @@ class AudioDataset(data.Dataset):
         '''
 
         # read data path
-        mix_scp = read_scp(opt_data, 'mix')
+        mix_scp = read_scp(opt_data)
         mix_path = mix_scp[0][0]
         nsample = int(mix_scp[1][0])
 

@@ -17,6 +17,7 @@ import numpy as np
 import torch
 
 from pit_criterion import calc_loss
+from utility.general import load_model_with_fixes
 
 
 class Solver(object):
@@ -45,16 +46,27 @@ class Solver(object):
 
         self._reset()
 
+    def save_checkpoint(self, name, epoch):
+        file_path = os.path.join(
+            self.save_folder, name)
+        torch.save({
+            'epoch': epoch + 1,
+            'model_state_dict': self.model.state_dict(),
+            'optimizer_state': self.optimizer.state_dict(),
+            'trandom_state': torch.get_rng_state(),
+            'nrandom_state': np.random.get_state()}, file_path)
+        print('Saving checkpoint model to %s' % file_path)
+
     def _reset(self):
         # Reset
         if self.continue_from:
             print('Loading checkpoint model %s' % self.continue_from)
-            cont = torch.load(self.continue_from)
-            self.start_epoch = cont['epoch']
-            self.model.load_state_dict(cont['model_state_dict'])
-            self.optimizer.load_state_dict(cont['optimizer_state'])
-            torch.set_rng_state(cont['trandom_state'])
-            np.random.set_state(cont['nrandom_state'])
+            checkpoint_info = torch.load(self.continue_from)
+            self.start_epoch = checkpoint_info['epoch']
+            load_model_with_fixes(self.model, checkpoint_info)
+            self.optimizer.load_state_dict(checkpoint_info['optimizer_state'])
+            torch.set_rng_state(checkpoint_info['trandom_state'])
+            np.random.set_state(checkpoint_info['nrandom_state'])
         else:
             self.start_epoch = 0
         # Create save folder
@@ -82,16 +94,7 @@ class Solver(object):
 
             # Save model each epoch
             if self.checkpoint:
-                file_path = os.path.join(
-                    self.save_folder, 'epoch%d.pth.tar' % (epoch + 1))
-                torch.save({
-                    'epoch': epoch + 1,
-                    'model_state_dict': self.model.state_dict(),
-                    'optimizer_state': self.optimizer.state_dict(),
-                    'trandom_state': torch.get_rng_state(),
-                    'nrandom_state': np.random.get_state()}, file_path)
-                print('Saving checkpoint model to %s' % file_path)
-
+                self.save_checkpoint('epoch%d.pth.tar' % (epoch + 1), epoch)
             # Cross validation
             print('Cross validation...')
             self.model.eval()  # Turn off Batchnorm & Dropout
@@ -110,7 +113,7 @@ class Solver(object):
                     if self.val_no_impv >= 3:
                         self.halving = True
                     if self.val_no_impv >= 10 and self.early_stop:
-                        print("No imporvement for 10 epochs, early stopping.")
+                        print("No improvement for 10 epochs, early stopping.")
                         break
                 else:
                     self.val_no_impv = 0
@@ -128,15 +131,8 @@ class Solver(object):
             self.cv_loss[epoch] = val_loss
             if val_loss < self.best_val_loss:
                 self.best_val_loss = val_loss
-                best_file_path = os.path.join(
-                    self.save_folder, 'temp_best.pth.tar')
-                torch.save({
-                    'epoch': epoch + 1,
-                    'model_state_dict': self.model.state_dict(),
-                    'optimizer_state': self.optimizer.state_dict(),
-                    'trandom_state': torch.get_rng_state(),
-                    'nrandom_state': np.random.get_state()}, best_file_path)
-                print("Find better validated model, saving to %s" % best_file_path)
+                print("Find better validated model")
+                self.save_checkpoint('temp_best.pth.tar', epoch)
 
     def _run_one_epoch(self, epoch, cross_valid=False):
         start = time.time()

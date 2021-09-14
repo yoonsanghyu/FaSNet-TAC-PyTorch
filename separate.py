@@ -14,6 +14,7 @@ import torch
 
 from FaSNet import FaSNet_TAC
 from data import AudioDataset, EvalAudioDataLoader
+from utility.general import load_model_with_fixes
 
 parser = argparse.ArgumentParser('Separate speech using FaSNet + TAC')
 parser.add_argument('--model_path', type=str, default='exp/tmp/temp_best.pth.tar',
@@ -50,14 +51,7 @@ def separate(args):
         model.cuda()
 
     model_info = torch.load(args.model_path)
-    try:
-        model.load_state_dict(model_info['model_state_dict'])
-    except KeyError:
-        state_dict = OrderedDict()
-        for k, v in model_info['model_state_dict'].items():
-            name = k.replace("module.", "")  # remove 'module.'
-            state_dict[name] = v
-        model.load_state_dict(state_dict)
+    load_model_with_fixes(model, model_info)
 
     print(model)
     model.eval()
